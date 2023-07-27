@@ -65,6 +65,7 @@ function dragDrop(e) {
   e.stopPropagation()
   const correctGo = draggedElement.firstChild.classList.contains(playerGo)
   const taken = e.target.classList.contains('peice')
+  const valid = checkIfValid(e.target)
   const opponentGo = playerGo === 'white' ? 'black' : 'white'
   const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
   
@@ -80,6 +81,11 @@ function dragDrop(e) {
       infoDisplay.textContent = "you cannot go here!"
       setTimeout(() =>  infoDisplay.textContent = "", 2000)
      
+      return
+    }
+    if (valid) {
+      e.target.append(draggedElement)
+      changePlayer()
       return
     }
   }
@@ -109,4 +115,30 @@ function reverseIds() {
 function revertIds() {
   const allSquares = document.querySelectorAll(".square")
   allSquares.forEach((square, i) => square.setAttribute('square-id', i))
+}
+
+
+
+
+
+function checkIfValid(target) {
+  const targetId = parseInt(target.getAttribute('square-id')) || parseInt(target.parentNode.getAttribute('square-id'));
+  const startId = parseInt(startPositionId);
+  const piece = draggedElement;
+
+  switch (piece) {
+    case 'pawn':
+      const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
+      const width = 8; 
+
+      if (
+        starterRow.includes(startId) && startId + width * 2 === targetId ||
+        startId + width === targetId ||
+        startId + width - 1 === targetId && !document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
+        startId + width + 1 === targetId && !document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
+      ) {
+        return true;
+      }
+      break;
+  }
 }
