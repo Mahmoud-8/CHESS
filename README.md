@@ -1,5 +1,5 @@
 # Chess Game
-![Alt text](240_F_210372870_Hy9MzkaFTexW0lMPjXWxEGwMjZggZ3qh.jpg)
+![Alt text](<Screenshot 2023-07-27 at 5.40.23 PM.png>)
 This is a simple implementation of a chess game using HTML, CSS, and JavaScript. The game features a chessboard where pieces can be moved by dragging and dropping them. The players take turns, and the game checks for valid moves and detects wins.
 
 ## How to Play
